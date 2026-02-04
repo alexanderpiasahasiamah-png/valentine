@@ -41,7 +41,6 @@ body {
   z-index: 2;
 }
 
-/* NEW intro text */
 .from-text {
   font-size: 14px;
   letter-spacing: 2px;
@@ -83,7 +82,18 @@ button {
   transform: translateX(20%);
 }
 
-/* Gorilla reveal */
+/* Gentle YES animation */
+@keyframes gentleYes {
+  0% { transform: translateX(-120%) scale(1); }
+  50% { transform: translateX(-120%) scale(1.15); }
+  100% { transform: translateX(-120%) scale(1); }
+}
+
+.force-yes {
+  animation: gentleYes 0.8s ease-in-out;
+}
+
+/* Image reveal */
 #imageBox {
   display: none;
   margin-top: 25px;
@@ -114,13 +124,12 @@ button {
 <body>
 
 <!-- Background Music -->
-<audio id="music" loop>
+<audio id="music" preload="auto" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
 
-  <!-- NEW TEXT HERE -->
   <div class="from-text">
     FROM ALEXANDER TO YOU BABY GIRL ❤️
   </div>
@@ -133,8 +142,11 @@ button {
   </div>
 
   <div id="imageBox">
-    <h2>You can’t escape love. PSYCH so you want love? ALEXANDER GOT THIS FOR YOU  😂😈❤️</h2>
-    <img src="gorilla.jpg.jpeg" alt="Gorilla Valentine">
+    <h2>
+      You can’t escape love 😈❤️  
+      <br> PSYCH, so you want LOVE? ALEXANDER GOT THIS FOR YOU 😂😂🫵
+    </h2>
+    <img src="gorilla.jpg" alt="Valentine">
     <br>
     <button class="reload" onclick="location.reload()">Try Again 🔄</button>
   </div>
@@ -153,23 +165,38 @@ function createHeart() {
 }
 setInterval(createHeart, 300);
 
-/* NO button gets faster */
-const noBtn = document.getElementById("no");
-let speed = 200;
-
-noBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 100);
-  noBtn.style.transition = `all ${speed}ms ease`;
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-  speed = Math.max(40, speed - 20);
-});
-
 /* YES button */
-document.getElementById("yes").addEventListener("click", () => {
+const yesBtn = document.getElementById("yes");
+yesBtn.addEventListener("click", () => {
   document.getElementById("imageBox").style.display = "block";
   document.getElementById("music").play();
+});
+
+/* NO button logic */
+const noBtn = document.getElementById("no");
+let noClicks = 0;
+
+noBtn.addEventListener("click", () => {
+  noClicks++;
+
+  if (noClicks === 1) {
+    noBtn.innerText = "Say yes 😌";
+  } 
+  else if (noClicks === 2) {
+    noBtn.innerText = "Please baby, yes 🥺";
+  } 
+  else if (noClicks === 3) {
+    noBtn.innerText = "No, really baby? 😭";
+
+    // Force YES (simple)
+    noBtn.style.display = "none";
+    yesBtn.classList.add("force-yes");
+
+    setTimeout(() => {
+      yesBtn.click();
+      yesBtn.classList.remove("force-yes");
+    }, 800);
+  }
 });
 </script>
 
