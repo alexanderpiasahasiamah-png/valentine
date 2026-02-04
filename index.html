@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Be My Valentine ❤️</title>
+<title>BE MY VALENTINE ❤️</title>
 
 <style>
 body {
@@ -139,6 +139,7 @@ button {
   <div class="buttons">
     <button id="yes">Yes 💘</button>
     <button id="no">No 💔</button>
+    <button id="MAYBE"> 😞😩</button>
   </div>
 
   <div id="imageBox">
@@ -146,7 +147,7 @@ button {
       You can’t escape love 😈❤️  
       <br> PSYCH, so you want LOVE? ALEXANDER GOT THIS FOR YOU 😂😂🫵
     </h2>
-    <img src="gorilla.jpg" alt="Valentine">
+    <img src="gorilla.jpg.jpeg" alt="Valentine">
     <br>
     <button class="reload" onclick="location.reload()">Try Again 🔄</button>
   </div>
@@ -172,6 +173,18 @@ yesBtn.addEventListener("click", () => {
   document.getElementById("music").play();
 });
 
+/*MAYBE button logic */
+  const MAYBEBtn= document.getElementById("MAYBE");
+  let MAYBEClick= 0
+
+  MAYBEBtn.addEventListener("click",() =>{
+    MAYBEClicks++;
+
+    if (MAYBEClick ===1) {
+      MAYBEBtn.innerText = " REALLY?😱, think about it and retry "
+    }
+  })
+      
 /* NO button logic */
 const noBtn = document.getElementById("no");
 let noClicks = 0;
